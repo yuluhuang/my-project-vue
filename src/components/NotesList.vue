@@ -34,7 +34,8 @@
 
 <script>
   import {
-    updateActiveNote
+    updateActiveNote,
+    getNotes
   } from '../vuex/actions'
 
   export default {
@@ -44,7 +45,7 @@
         }
       },
       ready: function() {
-        console.log(this.items)
+        this.getNotes()
       },
       vuex: {
         getters: {
@@ -52,10 +53,12 @@
           activeNote: state => state.activeNote
         },
         actions: {
-          updateActiveNote
+          updateActiveNote,
+          getNotes
         }
       },
-      methods: {},
+      methods: {
+      },
       computed: {
         filteredNotes() {
           if (this.show === 'all') {

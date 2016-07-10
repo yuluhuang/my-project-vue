@@ -7,24 +7,16 @@ const state = {
     activeNote: {}
 }
 
-// Vue.Notes.on('child_added', function (snapshot) {
-//     var newNote = snapshot.val() newNote.id = snapshot.key() state.notes.push(newNote)
-// })
-// Vue.Notes.on('child_removed', function (snapshot) {
-//     var id = snapshot.key() state.notes.some(function (note) {
-//         if (note.id === id) {
-//             state.notes.$remove(note) return true
-//         }
-//     })
-// })
 const mutations = {
-    GET_NOTES(state) {
+    GET_NOTES(state, notes) {
         Vue.Notes.orderByKey().on('child_added', function (snapshot) {
-            snapshot.forEach(function (data) {
-                state.notes = []
-                state.notes.push(snapshot.val())
-                console.log(JSON.stringify(data.val()), '1', data.key)
-            })
+            var note = snapshot.val()
+            note.id = snapshot.key
+            state.notes.push(note)
+            state.activeNote = note
+        })
+        Vue.Notes.orderByKey().on('child_removed', function (snapshot) {
+            state.notes.$remove(snapshot.val())
         })
         // Vue.Notes.orderByChild('id').on('child_added', function (snapshot) {
         //     snapshot.forEach(function (data) {
@@ -45,15 +37,14 @@ const mutations = {
         const newNote = {
             title: 'New note',
             text: '',
-            favorite: false,
-            id: 1
+            favorite: false
         }
         Vue.Notes.push(newNote).then(function (ref) {
             // console.log(ref, ref.key)
-            newNote.id = ref.key
-            Vue.Notes.child(ref.key).update(newNote)
-            state.notes.push(newNote)
-            state.activeNote = newNote
+            // state.activeNote = newNote
+            // newNote.id = ref.key
+            // Vue.Notes.child(ref.key).update(newNote)
+            // state.notes.push(newNote)
         })
     },
     EDIT_NOTE(state, text) {
@@ -62,7 +53,7 @@ const mutations = {
     },
     EDIT_NOTE_TITLE(state, title) {
         state.activeNote.title = title
-        Vue.Notes.child(state.activeNote.id).update({ title: state.activeNote })
+        Vue.Notes.child(state.activeNote.id).update({ title: state.activeNote.title })
     },
     DELETE_NOTE(state) {
         state.notes.$remove(state.activeNote)
