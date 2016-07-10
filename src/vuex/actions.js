@@ -1,3 +1,8 @@
+export const getNotes = ({
+    dispatch
+}) => {
+    dispatch('GET_NOTES')
+}
 export const addNote = ({
     dispatch
 }) => {
@@ -7,6 +12,12 @@ export const editNote = ({
     dispatch
 }, e) => {
     dispatch('EDIT_NOTE', e.target.value)
+}
+export const editNoteTitle = ({
+    dispatch
+}, e) => {
+    console.log(e.target)
+    dispatch('EDIT_NOTE_TITLE', e.target.value)
 }
 export const deleteNote = ({
     dispatch

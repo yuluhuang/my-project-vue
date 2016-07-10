@@ -1,4 +1,3 @@
-# git@github.com:yuluhuang/my-project-vue.git
 
 原文链接： https://coligo.io/learn-vuex-by-building-notes-app/
 > A Vue.js project

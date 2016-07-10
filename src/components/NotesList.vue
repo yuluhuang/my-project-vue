@@ -2,7 +2,7 @@
   <div id="notes-list">
 
     <div id="list-header">
-      <h2>Notes | coligo</h2>
+      <h2>Notes</h2>
       <div class="btn-group btn-group-justified" role="group">
         <!-- All Notes button -->
         <div class="btn-group" role="group">
@@ -23,7 +23,7 @@
       <div class="list-group">
         <a v-for="note in filteredNotes" class="list-group-item" href="#" :class="{active: activeNote === note}" @click="updateActiveNote(note)">
           <h4 class="list-group-item-heading">
-            {{note.text.trim().substring(0, 30)}}
+            {{note.title.trim().substring(0, 30)}}
           </h4>
         </a>
       </div>
@@ -43,6 +43,9 @@
           show: 'all'
         }
       },
+      ready: function() {
+        console.log(this.items)
+      },
       vuex: {
         getters: {
           notes: state => state.notes,
@@ -52,6 +55,7 @@
           updateActiveNote
         }
       },
+      methods: {},
       computed: {
         filteredNotes() {
           if (this.show === 'all') {
