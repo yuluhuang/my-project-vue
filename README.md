@@ -1,5 +1,4 @@
 
-原文链接： https://coligo.io/learn-vuex-by-building-notes-app/
 > A Vue.js project
 
 ## Build Setup
